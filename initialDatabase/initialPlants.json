@@ -1,0 +1,70 @@
+{
+  "id": "Plant A",
+  "description": "Gentle and green.",
+  "compatibleSoils": [
+    {
+      "id": "Soil A",
+      "description": "Thick, rich, and dark."
+    },
+    {
+      "id": "Soil D",
+      "description": "Light and maintenance-free."
+    }
+  ]
+},
+{
+  "id": "Plant B",
+  "description": "Tall with pink seeds.",
+  "compatibleSoils": [
+    {
+      "id": "Soil A",
+      "description": "Thick, rich, and dark."
+    },
+    {
+      "id": "Soil B",
+      "description": "Very soily."
+    },
+    {
+      "id": "Soil C",
+      "description": "Nutrient dense."
+    }
+  ]
+},
+{
+  "id": "Plant C",
+  "description": "Very plantish.",
+  "compatibleSoils": [
+    {
+      "id": "Soil D",
+      "description": "Light and maintenance-free."
+    },
+    {
+      "id": "Soil F",
+      "description": "Effy."
+    }
+  ]
+},
+{
+  "id": "Plant D",
+  "description": "Needs lots of Vitamin D.",
+  "compatibleSoils": [
+    {
+      "id": "Soil A",
+      "description": "Thick, rich, and dark."
+    },
+    {
+      "id": "Soil G",
+      "description": "Pretty good."
+    }
+  ]
+},
+{
+  "id": "Plant E",
+  "description": "Easy to grow.",
+  "compatibleSoils": [
+    {
+      "id": "Soil F",
+      "description": "Effy."
+    }
+  ]
+}

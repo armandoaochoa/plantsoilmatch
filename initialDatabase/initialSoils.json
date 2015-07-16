@@ -1,0 +1,40 @@
+{
+  "id": "Soil A",
+  "description": "Thick, rich, and dark."
+},
+{
+  "id": "Soil B",
+  "description": "Very soily."
+},
+{
+  "id": "Soil C",
+  "description": "Nutrient dense."
+},
+{
+  "id": "Soil D",
+  "description": "Light and maintenance-free."
+},
+{
+  "id": "Soil E",
+  "description": "Not very soily."
+},
+{
+  "id": "Soil F",
+  "description": "Effy."
+},
+{
+  "id": "Soil G",
+  "description": "Pretty good."
+},
+{
+  "id": "Soil H",
+  "description": "Heavy."
+},
+{
+  "id": "Soil I",
+  "description": "Insidious."
+},
+{
+  "id": "Soil J",
+  "description": "Jaunty."
+}
