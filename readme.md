@@ -36,7 +36,7 @@ While not used in the app since DocumentDB is prepopulated, I've included the JS
 ### Installation
 
 ```sh
-$ git clone [git-repo-url] plantsoil
+$ git clone https://github.com/armandoaochoa/plantsoilmatch.git plantsoil
 $ cd plantsoil
 $ npm install
 ```
