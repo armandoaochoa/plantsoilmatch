@@ -5,7 +5,7 @@
 // - Output
 
 //contains the entire frontend
-var PlantSoilMatch = React.createClass({
+var PlantSoilMatch = React.createClass({displayName: "PlantSoilMatch",
   getInitialState: function() {
     return {
       output: ''
@@ -47,16 +47,16 @@ var PlantSoilMatch = React.createClass({
   },
   render: function() {
     return (
-      <div align="center">
-        <MatchForm onMatchFormSubmit={this.handleMatchFormSubmit} soils={this.state.soils} plants={this.state.plants} />
-        <Output output={this.state.output} />
-      </div>
+      React.createElement("div", {align: "center"}, 
+        React.createElement(MatchForm, {onMatchFormSubmit: this.handleMatchFormSubmit, soils: this.state.soils, plants: this.state.plants}), 
+        React.createElement(Output, {output: this.state.output})
+      )
     );
   }
 });
 
 //receives user input, aggregates & displays plant and soil collections
-var MatchForm = React.createClass({
+var MatchForm = React.createClass({displayName: "MatchForm",
   propTypes: {
     soils: React.PropTypes.arrayOf(React.PropTypes.shape({
       id: React.PropTypes.string.isRequired
@@ -81,62 +81,62 @@ var MatchForm = React.createClass({
   },
   render: function() {
     var plantOptions = this.props.plants.map(function(plant) {
-      return <PSOption key={plant.id} name={plant.id} />;
+      return React.createElement(PSOption, {key: plant.id, name: plant.id});
     });
     var soilOptions = this.props.soils.map(function(soil) {
-      return <PSOption key={soil.id} name={soil.id} />;
+      return React.createElement(PSOption, {key: soil.id, name: soil.id});
     });
 
     return (
-      <div>
-        <h3>Choose a type of plant and soil. Then combine them!</h3>
-        <form className="plantsoilMatchForm" onSubmit={this.handleSubmit}>
-          <p>
-            Plant:
-            <select ref="plant">
-              {plantOptions}
-            </select>
-          </p>
-          <p>
-            Soil:
-            <select ref="soil">
-              {soilOptions}
-            </select>
-          </p>
-          <input type="submit" value="Combine" />
-        </form>
-      </div>
+      React.createElement("div", null, 
+        React.createElement("h3", null, "Choose a type of plant and soil. Then combine them!"), 
+        React.createElement("form", {className: "plantsoilMatchForm", onSubmit: this.handleSubmit}, 
+          React.createElement("p", null, 
+            "Plant:", 
+            React.createElement("select", {ref: "plant"}, 
+              plantOptions
+            )
+          ), 
+          React.createElement("p", null, 
+            "Soil:", 
+            React.createElement("select", {ref: "soil"}, 
+              soilOptions
+            )
+          ), 
+          React.createElement("input", {type: "submit", value: "Combine"})
+        )
+      )
     );
   }
 });
 
 //assembles plant and soil types into drop-down lists
-var PSOption = React.createClass({
+var PSOption = React.createClass({displayName: "PSOption",
   propTypes: {
     name: React.PropTypes.string.isRequired
   },
   render: function() {
     var name = this.props.name;
     return (
-      <option value={name}>{name}</option>
+      React.createElement("option", {value: name}, name)
     );
   }
 });
 
 //displays result from user submitting the form
-var Output = React.createClass({
+var Output = React.createClass({displayName: "Output",
   propTypes: {
     output: React.PropTypes.string.isRequired
   },
   render: function() {
     return (
-      <p>{this.props.output}</p>
+      React.createElement("p", null, this.props.output)
     );
   }
 });
 
 //instantiates the root component and injects into main DOM element
 React.render(
-  <PlantSoilMatch url="/service" pollInterval={60000}/>,
+  React.createElement(PlantSoilMatch, {url: "/service", pollInterval: 60000}),
   document.getElementById('content')
 );

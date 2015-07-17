@@ -49,7 +49,6 @@ plantsoilOperator.init(function(err) {
 // handles request for lists of plants and soils
 app.get('/service', function(req, res) {
   console.log('GET /service');
-  console.log(req.body);
 
   //get list of plants, store in return data
   var plantsPromise = new Promise(function(resolve, reject) {
