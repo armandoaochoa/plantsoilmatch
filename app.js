@@ -21,25 +21,14 @@ config.databaseId = "plantsoil";
 config.plantsCollectionId = "plants";
 config.soilsCollectionId = "soils";
 
-// - routes = require('./routes/index');
-// - var users = require('./routes/users');
-
 var app = express();
 app.set('port', (process.env.PORT || 3001));
-
-//NOTE: kept getting error that I didn't specify a view engine, tried adding the lines below, didn't work...
-//NOTE: The Facebook React tutorial I used doesn't specify a view engine, shouldn't be necessary.
-// view engine setup
-//app.set('/', path.join(__dirname + '/'));
-//app.engine('html', require('ejs').renderFile);
-//app.set('view engine', 'html');
-
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname + '/public')));
 
 // PlantSoil App
 var docDbClient = new DocumentDBClient(config.host, {
@@ -54,60 +43,44 @@ plantsoilOperator.init(function(err) {
   }
 });
 
-// - app.use('/', routes);
-// - app.use('/users', users);
-
 // single page app functions
 
 // handles request for lists of plants and soils
-app.get('/', function(req, res) {
-    var data = [];
-    data[0] = []; //plants
-    data[1] = []; //soils
+app.get('/service', function(req, res) {
+  console.log('GET /service');
+  console.log(req.body);
 
-    //get list of plants, store in var data
-    var pushPlants = function(callback) {
-      plantsoilOperator.getPlants(function(err, results) {
-        if (err) {
-          callback(err);
-        }
-
-        //iterate through results object, store each plant in data[0]
-        for (var i = 0; i < results.length; i++) {
-          data[0].push(results[i]);
-        }
-
-        callback(null);
-      });
-    };
-
-    //get list of soils, store in var data
-    var pushSoils = function(callback) {
-      plantsoilOperator.getSoils(function(err, results) {
-        if (err) {
-          callback(err);
-        }
-
-        //iterate through results object, store each soil in data[1]
-        for (var i = 0; i < results.length; i++) {
-          data[1].push(results[i]);
-        }
-        console.log(data);
-        callback(null);
-      });
-    };
-
-    //execute in parallel, write response to client
-    async.parallel([pushPlants, pushSoils], function () {
-      console.log('GET / : writing response now...');
-      res.setHeader('Cache-Control', 'no-cache');
-      res.JSON(data);
+  //get list of plants, store in return data
+  var plantsPromise = new Promise(function(resolve, reject) {
+    plantsoilOperator.getPlants(function(err, results) {
+      err ? reject(err) : resolve({plants: results});
     });
+  });
+
+  //get list of soils, store in var data
+  var pushSoils = function(callback) {
+    plantsoilOperator.getSoils(function(err, results) {
+      err ? reject(err) : resolve({soils: results});
+    });
+
+  //execute in parallel, write response to client
+  Promise.all([plantsPromise, soilsPromise]).then(function(values) {
+    console.log('values', values);
+    //aggregate results in var to be returned
+    var data = values.reduce(function(ret, cur) {
+      Object.keys(cur).forEach(function(key) {
+        ret[key] = cur[key];
+      });
+      return ret;
+    }, {});
+    res.setHeader('Cache-Control', 'no-cache');
+    res.json(data);
+  });
 });
 
 //handles plantsoilMatchForm submission from user, returns binary success or failure
-app.post('/', function(req, res) {
-  console.log('POST / : received request...');
+app.post('/service', function(req, res) {
+  console.log('POST /service : received request...');
   console.log(req.body);
 
   var plantId = req.body.plant;
@@ -118,7 +91,7 @@ app.post('/', function(req, res) {
     }
     console.log('POST / : writing response...', result);
     res.setHeader('Cache-Control', 'no-cache');
-    res.send(result);
+    res.json({goodMatch: result});
   });
 
 });

@@ -1,10 +1,10 @@
-# plantsoil app
+# plantsoilmatch app
 
-Plantsoil is a very simple web app that lets you choose a type of plant and a type of soil to test whether or not they'd make a successful combo. I wrote it for a job interview and to learn how to use ReactJS, Express, and Azure DocumentDB.
+Plantsoilmatch is a very simple web app that lets you choose a type of plant and a type of soil to test whether or not they'd make a successful combo. I wrote it for a job interview and to learn how to use ReactJS, Express, and Azure DocumentDB.
 
 ### Front-end
 
-Plantsoil is a single page app. It has four ReactJS components:
+Plantsoilmatch is a single page app. It has four ReactJS components:
 
 * [PlantSoilMatch] - contains the entire frontend and both AJAX calls
 * [MatchForm] - receives user input and displays plants and soils collections in drop-downs
@@ -49,6 +49,7 @@ I found these resources very helpful while learning and developing with React, E
 * https://azure.microsoft.com/en-us/documentation/articles/documentdb-sql-query/
 * https://facebook.github.io/react/docs/tutorial.html
 * https://facebook.github.io/react/docs/thinking-in-react.html
+* https://leanpub.com/nodecraftsman
 
 ### Development
 
