@@ -34,11 +34,8 @@ PlantSoilOperator.prototype = {
             }
 
             self.plantsCollection = coll;
-            console.log('Here37', self.plantsCollection);
             callback(null);
           });
-
-          //callback(null);
         },
 
         function(callback) {
@@ -48,22 +45,16 @@ PlantSoilOperator.prototype = {
             }
 
             self.soilsCollection = coll;
-            console.log('Here51', self.soilsCollection);
             callback(null);
           });
-
-          //callback(null);
         },
       ],
         function(err, results) {
           if (err) {
             callback(err);
           }
-          console.log('HERE');
         }
       );
-
-      //callback(null);
     });
 
   },
@@ -79,10 +70,8 @@ PlantSoilOperator.prototype = {
     self.client.queryDocuments(self.plantsCollection._self, querySpec).toArray(function(err, results) {
       if (err) {
         callback(err);
-      } else {
-        //console.log(results);
-        callback(null, results);
       }
+      callback(null, results);
     });
   },
 
@@ -97,9 +86,8 @@ PlantSoilOperator.prototype = {
     self.client.queryDocuments(self.soilsCollection._self, querySpec).toArray(function(err, results) {
       if (err) {
         callback(err);
-      } else {
-        callback(null, results);
       }
+      callback(null, results);
     });
   },
 
@@ -120,20 +108,9 @@ PlantSoilOperator.prototype = {
       ]
     };
 
-    //if 0 results, they are incompatible; if 1 result, they are compatible
+    //if 0 results (err), they are incompatible; if 1 result, they are compatible
     self.client.queryDocuments(self.plantsCollection._self, querySpec).toArray(function(err, results) {
-      if (err) {
-        callback(err);
-      }
-
-      if (!err && results.length === 0) {
-        //incompatible
-        callback(null, 0);
-      }
-      if (!err && results.length == 1) {
-        //compatible
-        callback(null, 1);
-      }
+      callback(err, results.length !== 0);
     });
   }
 

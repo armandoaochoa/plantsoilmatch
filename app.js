@@ -11,6 +11,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var async = require('async');
 var http = require('http');
+var Promise = require('es6-promise').Promise;
 
 
 //DocumentDB configuration
@@ -58,12 +59,13 @@ app.get('/service', function(req, res) {
   });
 
   //get list of soils, store in var data
-  var pushSoils = function(callback) {
+  var soilsPromise = new Promise(function(resolve, reject) {
     plantsoilOperator.getSoils(function(err, results) {
       err ? reject(err) : resolve({soils: results});
     });
+  });
 
-  //execute in parallel, write response to client
+  //execute together, write response
   Promise.all([plantsPromise, soilsPromise]).then(function(values) {
     console.log('values', values);
     //aggregate results in var to be returned
