@@ -16,8 +16,8 @@ var Promise = require('es6-promise').Promise;
 
 //DocumentDB configuration
 var config = {};
-config.host = process.env.HOST || "https://plantsoil.documents.azure.com:443/";
-config.authKey = process.env.AUTH_KEY || "Gr8ptbHRaml0I+zk7RgDwoBRd/4TV7jq/Zr7AzCUYNdquljWzN2HPnPpl/yhlfAvCoXF4iKRP1umiCSCZ5SOHQ==";
+config.host = process.env.HOST;
+config.authKey = process.env.AUTH_KEY;
 config.databaseId = "plantsoil";
 config.plantsCollectionId = "plants";
 config.soilsCollectionId = "soils";
