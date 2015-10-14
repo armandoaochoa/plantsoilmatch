@@ -41,6 +41,13 @@ $ cd plantsoilmatch
 $ npm install
 ```
 
+Plug in your DocumentDB endpoint and auth key in app.js (or set it up as a environment variable):
+
+```js
+config.host = process.env.HOST;
+config.authKey = process.env.AUTH_KEY;
+```
+
 ### Resources used
 
 I found these resources very helpful while learning and developing with React, Express, and DocumentDB:
